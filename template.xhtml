@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0"/>
+        <title>KEM</title>
+
+        <!-- Add to homescreen for Chrome on Android -->
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <link rel="icon" sizes="192x192" href="images/android-desktop.png"/>
+
+        <!-- Add to homescreen for Safari on iOS -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <meta name="apple-mobile-web-app-title" content="Material Design Lite"/>
+        <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png"/>
+
+
+        <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png"/>
+        <meta name="msapplication-TileColor" content="#3372DF"/>
+
+        <link rel="shortcut icon" href="images/favicon.png"/>
+
+
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.cyan-light_blue.min.css"/>
+        <link rel="stylesheet" href="styles.css"/>
+        <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css"/>
+        <h:outputStylesheet library="bower_components/font-awesome/css" name="font-awesome.min.css"/>
+
+        <ui:insert name="stylesheets"/>
+
+        <style>
+            #view-source {
+                position: fixed;
+                display: block;
+                right: 0;
+                bottom: 0;
+                margin-right: 40px;
+                margin-bottom: 40px;
+                z-index: 900;
+            }
+
+        </style>
+    </h:head>
+    <h:body>
+
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+                <h2> 
+                    <div style="text-align:center;">
+                        Welcome to KEM Hospital           
+                    </div>
+                </h2>
+            </header>
+            <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+                <header class="demo-drawer-header">
+                    <img src="images/user.jpg" class="demo-avatar"/>
+                    <div class="demo-avatar-dropdown">
+                        <span>#{sessionInfo.username}</span>
+                        <div class="mdl-layout-spacer"></div>
+                        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                            <i class="material-icons" role="presentation">arrow_drop_down</i>
+                            <span class="visuallyhidden">Accounts</span>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                            <li class="mdl-menu__item"><a href="changepassword.xhtml" style="text-decoration: none"> Change Password</a></li>
+                            <a href="logout" style="text-decoration:none"><li  class="mdl-menu__item" style="color: rgb(64,196,255);font-weight: 500;">Log out</li></a>
+                        </ul>
+                    </div>
+                </header>
+                <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                    <h:panelGroup rendered="#{userRegistrationBean.flag>0}">
+                    <a class="mdl-navigation__link" href="index.xhtml" style="text-decoration: none"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Home</a>       
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{userRegistrationBean.flag==1}">
+                    <a class="mdl-navigation__link" href="registration.xhtml" style="text-decoration: none"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New User</a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{userRegistrationBean.flag==1}">
+                    <a class="mdl-navigation__link" href="adminpasswordchange.xhtml" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Admin Pwd Change</a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{userRegistrationBean.flag>0 or userRegistrationBean.flag==2 or userRegistrationBean.flag==3}">
+                    <a class="mdl-navigation__link" href="upload.xhtml" style="text-decoration: none"><i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Upload File</a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{userRegistrationBean.flag>0}">
+                    <a class="mdl-navigation__link" href="downloadPage.xhtml" style="text-decoration: none"><i class="fa fa-download demo-separator" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Download File</a>
+                    </h:panelGroup>
+                    <h:panelGroup rendered="#{userRegistrationBean.flag==1}">
+                    <a class="mdl-navigation__link" href="newproject.xhtml"   style="text-decoration: none"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;New Project</a>                    
+                    </h:panelGroup>
+                    <a class="mdl-navigation__link" href=""><i class="fa fa-medkit" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Help</a>
+                </nav>
+            </div>
+
+
+
+            <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-grid demo-content">
+
+                    <ui:insert name="main"/>
+                </div>
+            </main>
+
+        </div>
+
+
+
+
+        <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+        <ui:insert name="scripts"/>
+    </h:body>
+</html>

@@ -1,0 +1,105 @@
+<ui:composition template="./template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="stylesheets">
+        <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css"/>
+        <h:outputStylesheet library="bower_components/font-awesome/css" name="font-awesome.min.css"/>
+    </ui:define>
+    <ui:define name="main">
+
+        <div class="container">
+            <div class="row">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">New Project</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h:form role="form" prependId="false">
+                            <fieldset>
+                                <div class="col-sm-12">
+                                    <p:messages id="messages" showDetail="true" globalOnly="true" autoUpdate="true"/>
+                                    <div class="row">
+                                        <div class="col-sm-12 form-group">
+                                            <h:outputLabel for="name" value="Project Name" /><br/>
+                                            <p:inputText id="name" type="text" binding="#{projectBean.projectnameUIComponent}" required="true" requiredMessage="Field Cannot be left empty" value="#{projectBean.projectList.projectname}" class="form-control">
+                                                <p:ajax event="blur" update="name projectError" listener="#{projectBean.validate}"/>
+                                            </p:inputText>
+
+                                            <p:message id="projectError" for="name" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 form-group">
+                                            <h:outputLabel for="creator" value="Created By  :  "/> <span><b>#{sessionInfo.username}</b></span> <br/>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <h:outputLabel for="remarks" value="Remarks" /><br/>
+                                        <h:inputTextarea  id="remarks" rows="3" required="true" requiredMessage="Field Cannot be left empty" value="#{projectBean.projectList.remarks}" class="form-control"></h:inputTextarea>
+                                        <p:message for="remarks" />
+                                    </div>	
+
+                                    <br/>
+
+                                    <div class="form-group">
+                                        <p:outputLabel for="role" value="Roles : "/><br/>
+                                            <p:panel id="role">
+                                                <table >
+                                                    <tr>
+                                                        <td>
+                                                            <p:selectCheckboxMenu id="role1" value="#{projectBean.master}" label="MASTER"
+                                                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" style="width: 300px" >
+                                                                <f:selectItems value="#{changePassword.usernames}" />
+                                                            </p:selectCheckboxMenu>
+                                                        </td>
+                                                        <td>
+                                                            <p:selectCheckboxMenu id="role2" value="#{projectBean.lab}" label="LAB"
+                                                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" style="width: 300px">
+                                                                <f:selectItems value="#{changePassword.usernames}" />
+                                                            </p:selectCheckboxMenu>
+                                                        </td>
+                                                        <td>
+                                                            <p:selectCheckboxMenu id="role3" value="#{projectBean.guest}" label="GUEST"
+                                                                                  filter="true" filterMatchMode="startsWith" panelStyle="width:300px" style="width: 300px">
+                                                                <f:selectItems value="#{changePassword.usernames}" />
+                                                            </p:selectCheckboxMenu>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </p:panel>
+
+                                    </div>
+
+                                    <h:commandButton type="submit" id="register-submit" tabindex="4" class="btn btn-lg btn-success btn-block" value="Create Project" action="#{projectBean.create()}" />				
+
+                                </div>
+                            </fieldset>
+                        </h:form> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        <h:outputScript library="bower_components/jquery/dist" name="jquery.min.js"/>-->
+
+        <!-- Bootstrap Core JavaScript -->
+        <h:outputScript library="bower_components/bootstrap/dist/js" name="bootstrap.min.js"/>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <h:outputScript library="bower_components/metisMenu/dist" name="metisMenu.min.js"/>
+
+        <!-- Custom Theme JavaScript -->
+        <h:outputScript library="js" name="sb-admin-2.js"/>
+    </ui:define>
+
+    <ui:define name="scripts">
+
+    </ui:define>
+
+</ui:composition>

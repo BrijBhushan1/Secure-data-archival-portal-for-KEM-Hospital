@@ -1,0 +1,128 @@
+<ui:composition template="./template.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="stylesheets">
+        <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css"/>
+        <h:outputStylesheet library="bower_components/font-awesome/css" name="font-awesome.min.css"/>
+    </ui:define>
+    <ui:define name="main">
+
+        <div class="container">
+            <div class="row">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Registration</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h:form role="form" prependId="false">
+                            <fieldset>
+                                <div class="col-sm-12">
+                                    <p:messages id="messages" showDetail="true" globalOnly="true" autoUpdate="true"/>
+                                    <div class="row">
+                                        <div class="col-sm-12 form-group">
+                                            <h:outputLabel for="name" value="Name" p:placeholder="Name" /><br/>
+                                            <p:inputText id="name" required="true"  requiredMessage="Field Cannot be left empty"  value="#{userRegistrationBean.user.name}" class="form-control"/>
+                                            <p:message for="name" />
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <p:outputLabel for="doB" value="Date of Birth:" /><Br/>
+                                        <p:calendar  id="doB" value="#{userRegistrationBean.user.dob}" requiredMessage="Field Cannot be left empty" navigator="true" required="true"  yearRange="c-116:c+0" maxdate="c-1"/>
+                                        <p:message for="doB" />
+                                    </div>
+                                    <div class="form-group">
+                                        <p:outputLabel for="gender" value="Gender" /><Br/>
+                                        <p:selectOneMenu id="gender" value= "#{userRegistrationBean.user.gender}" style="width:225px"  required="true" requiredMessage="Field Cannot be left empty"> 
+                                            <f:selectItem itemLabel="Select" itemValue="" />
+                                            <f:selectItem itemLabel="Male" itemValue="Male" />
+                                            <f:selectItem itemLabel="Female" itemValue="Female" />
+                                            <f:selectItem itemLabel="Other" itemValue="Other" />
+                                        </p:selectOneMenu>
+                                        <p:message for="gender" />
+                                    </div>  
+
+
+
+
+
+                                    <div class="form-group">
+
+                                        <p:outputLabel for="phone" value="Contact Number:"/>
+                                        <p:inputMask id="phone" value="#{userRegistrationBean.user.contact}" required="true" requiredMessage="Field Cannot be left empty" class= "form-control" placeholder=" Phone Number " mask="+(99)-9999999999" />
+                                        <p:message for="phone" />
+
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputLabel  value="Address" /><br/>
+                                        <h:inputTextarea  id="address" rows="3" required="true" requiredMessage="Field Cannot be left empty" value="#{userRegistrationBean.user.address}" class="form-control"></h:inputTextarea>
+                                        <p:message for="address" />
+                                    </div>	
+
+                                    <div class="form-group">
+                                        <h:outputLabel  value="Email Address" /><br/>
+                                        <p:inputText id="email" type="email"  required="true" requiredMessage="Field Cannot be left empty" value="#{userRegistrationBean.user.emailid}" class="form-control"/>
+                                        <p:message  for="email" />
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <p:outputLabel for="role" value="Role" /><Br/>
+                                        <p:selectOneMenu id="role" value= "#{userRegistrationBean.user.role}" style="width:225px"  required="true" requiredMessage="Field Cannot be left empty"> 
+                                            <f:selectItem itemLabel="NON-ADMIN" itemValue="NON-ADMIN" />
+                          
+                                            <f:selectItem itemLabel="ADMIN" itemValue="ADMIN" />
+                                        </p:selectOneMenu>
+                                        <p:message for="role" />
+                                    </div> 
+
+                                    <div class="form-group">
+                                        <h:outputLabel  value="User name" /><br/>
+                                        <p:inputText id="username" type="text" binding="#{userRegistrationBean.usernameUIComponent}" required="true" requiredMessage="Field Cannot be left empty" value="#{userRegistrationBean.user.username}" class="form-control">
+                                            <p:ajax event="blur" update="username userError" listener="#{userRegistrationBean.validate}"/>
+                                        </p:inputText>
+
+                                        <p:message id="userError" for="username" />
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <h:outputLabel for="pwd1" value="Enter Password" /><br/>
+                                        <p:password id="pwd1" value="#{userRegistrationBean.user.password}" feedback="false" label="Password" class="form-control"  match="pwd2" required="true" requiredMessage="Field Cannot be left empty" validator="#{userRegistrationBean.validatePassword}"/>
+
+                                    </div>
+                                    <div class="form-password">
+                                        <h:outputLabel for="pwd2" value="Confirm Password" /><br/>
+                                        <p:password id="pwd2" value="#{userRegistrationBean.user.password}" feedback="false" class="form-control" label="Confirm Password"  required="true" requiredMessage="Field Cannot be left empty"/>
+                                        <p:message for="pwd1" />
+                                    </div>
+                                    <br/>
+                                    <h:commandButton type="submit" id="register-submit" tabindex="4" class="btn btn-lg btn-success btn-block" value="Register Now" action="#{userRegistrationBean.save()}" />				
+                                </div>
+                            </fieldset>
+                        </h:form> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--        <h:outputScript library="bower_components/jquery/dist" name="jquery.min.js"/>-->
+
+        <!-- Bootstrap Core JavaScript -->
+        <h:outputScript library="bower_components/bootstrap/dist/js" name="bootstrap.min.js"/>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <h:outputScript library="bower_components/metisMenu/dist" name="metisMenu.min.js"/>
+
+        <!-- Custom Theme JavaScript -->
+        <h:outputScript library="js" name="sb-admin-2.js"/>
+    </ui:define>
+
+    <ui:define name="scripts">
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,52 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:body>
+
+        <ui:composition template="./template.xhtml">
+            <ui:define name="stylesheets">
+                <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.min.css"/>
+                <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css"/>
+                <h:outputStylesheet library="bower_components/font-awesome/css" name="font-awesome.min.css"/>
+            </ui:define>
+            <ui:define name="main">
+
+             
+
+                <!-- Wide card with share menu button -->
+                <style>
+                    .demo-card-wide.mdl-card {
+                        width: 1100px;
+                    }
+                    .demo-card-wide > .mdl-card__title {
+                        color: #fff;
+                        height: 350px;
+                        background: url("images/KEMH.jpg") center / cover;
+                    }
+                    .demo-card-wide > .mdl-card__menu {
+                        color: #fff;
+                    }
+                </style>
+
+                <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text"></h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <h4> The KEM Hospital, Pune, India, is the largest Non-Govt. Organization hospital in the Pune District of Maharashtra State.
+                        </h4>></div>
+
+
+                </div>
+            </ui:define>
+
+            <ui:define name="scripts">
+                scripts
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

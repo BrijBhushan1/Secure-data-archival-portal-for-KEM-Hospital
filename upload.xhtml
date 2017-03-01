@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition template="./template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="stylesheets">
+        <h:outputStylesheet library="bower_components/bootstrap/dist/css" name="bootstrap.min.css"/>
+        <h:outputStylesheet library="bower_components/metisMenu/dist" name="metisMenu.min.css"/>
+        <h:outputStylesheet library="bower_components/font-awesome/css" name="font-awesome.min.css"/>
+    </ui:define>
+
+    <ui:define name="main">
+        <h:form enctype="multipart/form-data" prependId="false">
+
+            <p:treeTable id="treeTable" value="#{ttBasicView.root}"  var="document" selectionMode="single" selection="#{ttBasicView.selectedNode}">
+
+                <f:facet name="header">
+                    File Upload
+                </f:facet>
+                <p:ajax event="select" update="fileUpload" listener="#{uploadBean.onNodeSelect}" />
+
+                <p:column headerText="Projects">
+                    <h:outputText value="#{document.name}" />
+                </p:column>
+            </p:treeTable>
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+            <p:panel id="fileUpload" >
+                <p:fileUpload  value="#{uploadBean.file}" mode="advanced" rendered="#{uploadBean.fileUploadView and uploadBean.uploadable}"
+                               fileUploadListener="#{uploadBean.save}"></p:fileUpload>
+                <p:commandButton value="New Folder" type="button" onclick="PF('dlg2').show();" rendered="#{uploadBean.lab and uploadBean.fileUploadView}"/>
+
+                <p:commandButton value="Delete" immediate="true" actionListener="#{uploadBean.delete}" update="growl treeTable fileUpload" rendered="#{uploadBean.lab and uploadBean.fileUploadView and uploadBean.uploadable}">
+                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                </p:commandButton>
+
+            </p:panel>
+
+
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+
+            <p:dialog header="Create New Folder" widgetVar="dlg2" modal="false" height="100" >
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputLabel for="folderName" value="Folder Name" />
+                    <p:inputText id="folderName" value="#{uploadBean.folderName}" required="true" label="folderName" />
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Create" update="growl treeTable fileUpload " actionListener="#{uploadBean.create}"
+                                         oncomplete="PF('dlg2').hide()  $('#CreateLink').fadeOut()"/>
+                    </f:facet>  
+                </h:panelGrid>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+
+    <ui:define name="scripts">
+
+    </ui:define>
+
+</ui:composition>
+
+
